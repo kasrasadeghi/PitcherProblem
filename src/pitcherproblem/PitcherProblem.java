@@ -7,7 +7,6 @@
 package pitcherproblem;
 
 
-import apcscvm.CVMProgram;
 import java.util.ArrayList;
 
 /**
@@ -21,30 +20,27 @@ public class PitcherProblem {
         return null;
     }
     
-    
-    
     public static void launchPlayerWindow()
     {
-        /*
-        AnimationWindow win = new AnimationWindow( "Pitcher Player", 800, 700, 50 );
-        
-        PitcherProblemModel m = new PitcherProblemModel( 12, 7, 6, 9 );
-        win.addAnimatedObject( new PitcherProblemPlayerControl( m ) );
-        
-        win.run();
-        */
+//
+//        AnimationWindow win = new AnimationWindow( "Pitcher Player", 800, 700, 50 );
+//
+//        PitcherProblemModel m = new PitcherProblemModel( 12, 7, 6, 9 );
+//        win.addAnimatedObject( new PitcherProblemPlayerControl( m ) );
+//
+//        win.run();
     }
     
     public static void launchSolverWindow()
     {
-        /*
-        AnimationWindow win = new AnimationWindow( "Pitcher Solver", 800, 700, 50 );
-        
-        PitcherProblemModel m = new PitcherProblemModel( 12, 7, 6, 3 );
-        win.addAnimatedObject( new PitcherProblemSolverDisplay( m ) );
-        
-        win.run();
-        */
+//
+//        AnimationWindow win = new AnimationWindow( "Pitcher Solver", 800, 700, 50 );
+//
+//        PitcherProblemModel m = new PitcherProblemModel( 12, 7, 6, 3 );
+//        win.addAnimatedObject( new PitcherProblemSolverDisplay( m ) );
+//
+//        win.run();
+//
     }
     
     /**
@@ -53,7 +49,15 @@ public class PitcherProblem {
     public static void main(String[] args) {
         
         PitcherProblemGUI.main( args );
-        
+        PitcherConfiguration pc = new PitcherConfiguration(12, 7, 6);
+        PitcherProblemSolver pps = new PitcherProblemSolver(pc);
+        if (pps.breadthFirstSearch(3) != null) {
+            for (PitcherMove pm : pps.breadthFirstSearch(3)) {
+                System.out.println(pm);
+            }
+        } else {
+            System.out.println("no solution");
+        }
     }
     
 }
