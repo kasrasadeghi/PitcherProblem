@@ -77,7 +77,8 @@ public class PitcherConfiguration
     }
 
     // Add member variables here to represent the state of a pitcher problem
-    List<Pitcher> pitchers;
+    private List<Pitcher> pitchers;
+    private List<PitcherMove> parentPath;
     
     // Constructor - takes the sizes of the three pitchers
     // The largest pitcher should start out full, while the other two are empty
@@ -87,15 +88,20 @@ public class PitcherConfiguration
         pitchers.add(new Pitcher(A, true));
         pitchers.add(new Pitcher(B));
         pitchers.add(new Pitcher(C));
+        parentPath = new ArrayList<>();
     }
 
-    public PitcherConfiguration( List<Pitcher> ps){
+    public PitcherConfiguration( List<Pitcher> ps, List<PitcherMove> parentPath){
         pitchers = new ArrayList<>();
         for (Pitcher p : ps) {
             pitchers.add(p.copy());
         }
+        this.parentPath = new ArrayList<>(parentPath);
     }
-   
+
+    public List<PitcherMove> getParentPath() {
+        return parentPath;
+    }
     
     public List<PitcherMove> getPossibleMoves()
     {
@@ -109,13 +115,14 @@ public class PitcherConfiguration
     // copy - returns a copy (new PC) of this configuration
     public PitcherConfiguration copy()
     {
-        return new PitcherConfiguration(pitchers);
+        return new PitcherConfiguration(pitchers, parentPath);
     }
     
     // executeMove - creates a new state which is the same as this state except
     // that the move m has been executed
     public PitcherConfiguration executeMove( PitcherMove m )
     {
+        parentPath.add(m);
         PitcherConfiguration next = copy();
         next.handlePitcherMove(m);
         return next;
