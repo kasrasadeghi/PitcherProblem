@@ -6,9 +6,7 @@
 
 package pitcherproblem;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  *
@@ -83,6 +81,23 @@ public class PitcherProblemSolver
             }
         }
         return s.peek().getParentPath();
+    }
+
+    public List<PitcherMove> breadthFirstSearch(int goal) {
+        List<String> visited = new ArrayList<>();
+        Queue<PitcherConfiguration> queue = new LinkedList<>();
+        queue.offer(pc);
+        while(!queue.peek().hasAPitcherWithContents(goal)) {
+            PitcherConfiguration visit = queue.poll();
+            List<PitcherMove> moves = visit.getPossibleMoves();
+            if (!visited.contains(visit.toString())) {
+                visited.add(visit.toString());
+                for (PitcherMove pm : moves)
+                    queue.offer(visit.executeMove(pm));
+            }
+        }
+        if (queue.isEmpty()) return null;
+        return queue.peek().getParentPath();
     }
 
 }
