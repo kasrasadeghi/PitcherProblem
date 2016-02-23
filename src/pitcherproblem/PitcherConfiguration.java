@@ -35,6 +35,11 @@ public class PitcherConfiguration
             this.volume = 0;
         }
 
+        public Pitcher(int size, int volume) {
+            this.size = size;
+            this.volume = volume;
+        }
+
         public int getCapacity() {
             return size;
         }
@@ -61,7 +66,16 @@ public class PitcherConfiguration
             result = 31 * result + volume;
             return result;
         }
+
+        public Pitcher copy() {
+            return new Pitcher(size, volume);
+        }
+
+        public void changeVol(int delta) {
+            volume += delta;
+        }
     }
+
     // Add member variables here to represent the state of a pitcher problem
     List<Pitcher> pitchers;
     
@@ -70,13 +84,16 @@ public class PitcherConfiguration
     public PitcherConfiguration( int A, int B, int C )
     {
         pitchers = new ArrayList<>();
-        pitchers.add(new Pitcher(A));
+        pitchers.add(new Pitcher(A, true));
         pitchers.add(new Pitcher(B));
         pitchers.add(new Pitcher(C));
     }
 
     public PitcherConfiguration( List<Pitcher> ps){
-        pitchers = new ArrayList<>(ps);
+        pitchers = new ArrayList<>();
+        for (Pitcher p : ps) {
+            pitchers.add(p.copy());
+        }
     }
    
     
@@ -86,7 +103,6 @@ public class PitcherConfiguration
         for (int i = 0; i < 3; ++i)
             for (int j = 0; j < 3; ++j)
                 if (j != i) moves.add(new PitcherMove(i, j));
-
         return moves;
     }
    
@@ -102,19 +118,22 @@ public class PitcherConfiguration
     {
         PitcherConfiguration next = copy();
         next.handlePitcherMove(m);
-        return null;
+        return next;
     }
 
     private void handlePitcherMove(PitcherMove m) {
-        int destSize = pitchers.get(m.destination).size;
-        int srcSize = pitchers.get(m.source).size;
-        int destVol = pitchers.get(m.destination).volume;
-        int srcVol = pitchers.get(m.source).volume;
+        //if the destination has more empty in it than the source has volume, then delta = sourceVol
+        //if the destination has less empty in it than the source has volume, then delta = destEmpty
 
-        int destEmpty = destSize - destVol;
-        int delta = (destEmpty > srcVol)? destEmpty : srcSize;
-        pitchers.get(m.source).volume -= delta;
-        pitchers.get(m.destination).volume += delta;
+        Pitcher dest = pitchers.get(m.destination);
+        Pitcher src = pitchers.get(m.source);
+
+        int destEmpty = dest.size - dest.volume;
+        int srcVol = src.volume;
+        int delta = (destEmpty > srcVol)?  srcVol:destEmpty;
+
+        pitchers.get(m.source).changeVol(-delta);
+        pitchers.get(m.destination).changeVol(delta);
     }
     
     // toString() - returns a String representing the state of each of the pitchers.
