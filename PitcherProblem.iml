@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../AP CS/Libraries/APCSCVM.jar!/" />
@@ -24,6 +24,18 @@
         <JAVADOC />
         <SOURCES>
           <root url="jar://$MODULE_DIR$/../../AP CS/Libraries/APCSAnimation.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../CompSci/Libraries/APCSCVM.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../CompSci/Libraries/APCSAnimation.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../CompSci/Libraries/APCSAnimation.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>

@@ -49,15 +49,15 @@ public class PitcherProblem {
     public static void main(String[] args) {
         
         PitcherProblemGUI.main( args );
-        PitcherConfiguration pc = new PitcherConfiguration(12, 7, 6);
-        PitcherProblemSolver pps = new PitcherProblemSolver(pc);
-        if (pps.breadthFirstSearch(3) != null) {
-            for (PitcherMove pm : pps.breadthFirstSearch(3)) {
-                System.out.println(pm);
-            }
-        } else {
-            System.out.println("no solution");
-        }
+//        PitcherConfiguration pc = new PitcherConfiguration(12, 7, 6);
+//        PitcherProblemSolver pps = new PitcherProblemSolver(pc);
+//        if (pps.(3) != null) {
+//            for (PitcherMove pm : pps.(3)) {
+//                System.out.println(pm);
+//            }
+//        } else {
+//            System.out.println("no solution");
+//        }
     }
     
 }
